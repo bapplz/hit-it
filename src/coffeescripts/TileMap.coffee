@@ -1,10 +1,10 @@
 class @TileMap
   constructor: (@rows, @columns, @width, @height) ->
-    @tiles = Array(@rows)
-    @tileWidth = Math.floor(width / @columns)
+    @tiles = Array(@rows + 1)
+    @tileWidth = Math.floor(@width / @columns)
     @tileHeight = Math.floor(@height / @rows)
     for i in [1..@rows]
-      @tiles[i] = Array(@columns)
+      @tiles[i] = Array(@columns + 1)
       for j in [1..@columns]
         @tiles[i][j] = null
     @callbacks = []
@@ -17,8 +17,10 @@ class @TileMap
 
   click: (x, y) ->
     tileColumn = Math.floor(x / @tileWidth) + 1
+    tileColumn-- unless tileColumn <= @columns
     tileRow = Math.floor(y / @tileHeight) + 1
-    tile = @tiles[tileColumn][tileRow]
+    tileRow-- unless tileRow <= @rows
+    tile = @tiles[tileRow][tileColumn]
     this.trigger("click", tile)
 
   trigger: (eventType, data) ->
@@ -30,7 +32,6 @@ class @TileMap
 
   fillTiles: ->
     for i in [1..@rows]
-      @tiles[i] = Array(@columns)
       for j in [1..@columns]
         tile = new Tile(i, j)
         @tiles[i][j] = tile

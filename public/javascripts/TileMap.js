@@ -10,11 +10,11 @@
       this.columns = columns;
       this.width = width;
       this.height = height;
-      this.tiles = Array(this.rows);
-      this.tileWidth = Math.floor(width / this.columns);
+      this.tiles = Array(this.rows + 1);
+      this.tileWidth = Math.floor(this.width / this.columns);
       this.tileHeight = Math.floor(this.height / this.rows);
       for (i = _i = 1, _ref = this.rows; 1 <= _ref ? _i <= _ref : _i >= _ref; i = 1 <= _ref ? ++_i : --_i) {
-        this.tiles[i] = Array(this.columns);
+        this.tiles[i] = Array(this.columns + 1);
         for (j = _j = 1, _ref1 = this.columns; 1 <= _ref1 ? _j <= _ref1 : _j >= _ref1; j = 1 <= _ref1 ? ++_j : --_j) {
           this.tiles[i][j] = null;
         }
@@ -32,8 +32,14 @@
     TileMap.prototype.click = function(x, y) {
       var tile, tileColumn, tileRow;
       tileColumn = Math.floor(x / this.tileWidth) + 1;
+      if (!(tileColumn <= this.columns)) {
+        tileColumn--;
+      }
       tileRow = Math.floor(y / this.tileHeight) + 1;
-      tile = this.tiles[tileColumn][tileRow];
+      if (!(tileRow <= this.rows)) {
+        tileRow--;
+      }
+      tile = this.tiles[tileRow][tileColumn];
       return this.trigger("click", tile);
     };
 
@@ -56,7 +62,6 @@
       var i, j, tile, _i, _ref, _results;
       _results = [];
       for (i = _i = 1, _ref = this.rows; 1 <= _ref ? _i <= _ref : _i >= _ref; i = 1 <= _ref ? ++_i : --_i) {
-        this.tiles[i] = Array(this.columns);
         _results.push((function() {
           var _j, _ref1, _results1;
           _results1 = [];

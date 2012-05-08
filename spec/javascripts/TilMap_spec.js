@@ -35,12 +35,32 @@
       this.tileMap.click(100, 100);
       return expect(callback).toHaveBeenCalled;
     });
-    return it("should call click callback with correct tile selected", function() {
+    it("should call click callback with correct tile selected", function() {
       var callback, expectedTile;
       callback = jasmine.createSpy("clickCallback");
       this.tileMap.on("click", callback);
       this.tileMap.click(100, 100);
       expectedTile = new Tile(1, 1);
+      return expect(callback).toHaveBeenCalledWith(expectedTile);
+    });
+    it("should be able to click on a tile when it is at the start of it", function() {
+      var callback, expectedTile;
+      this.tileMap = new TileMap(5, 4, 4, 5);
+      this.tileMap.fillTiles();
+      callback = jasmine.createSpy("clickCallback");
+      this.tileMap.on("click", callback);
+      this.tileMap.click(0, 0);
+      expectedTile = new Tile(1, 1);
+      return expect(callback).toHaveBeenCalledWith(expectedTile);
+    });
+    return it("should be able to click on a tile when it is at the end of it", function() {
+      var callback, expectedTile;
+      this.tileMap = new TileMap(5, 4, 4, 5);
+      this.tileMap.fillTiles();
+      callback = jasmine.createSpy("clickCallback");
+      this.tileMap.on("click", callback);
+      this.tileMap.click(4, 5);
+      expectedTile = new Tile(5, 4);
       return expect(callback).toHaveBeenCalledWith(expectedTile);
     });
   });

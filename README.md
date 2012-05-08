@@ -1,6 +1,6 @@
 ## Hit it
 
-Simple hit box manipulation engine in CoffeeScript
+Simple tile map generation and interaction engine in CoffeeScript
 
 ## Installation
 

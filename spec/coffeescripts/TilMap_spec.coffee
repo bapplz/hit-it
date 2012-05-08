@@ -37,4 +37,21 @@ describe "TilMap", ->
     expectedTile = new Tile(1, 1)
     expect(callback).toHaveBeenCalledWith(expectedTile)
 
+  it "should be able to click on a tile when it is at the start of it", ->
+    @tileMap = new TileMap(5, 4, 4, 5)
+    @tileMap.fillTiles()
+    callback = jasmine.createSpy "clickCallback"
+    @tileMap.on "click", callback
+    @tileMap.click(0, 0)
+    expectedTile = new Tile(1, 1)
+    expect(callback).toHaveBeenCalledWith(expectedTile)
+
+  it "should be able to click on a tile when it is at the end of it", ->
+    @tileMap = new TileMap(5, 4, 4, 5)
+    @tileMap.fillTiles()
+    callback = jasmine.createSpy "clickCallback"
+    @tileMap.on "click", callback
+    @tileMap.click(4, 5)
+    expectedTile = new Tile(5, 4)
+    expect(callback).toHaveBeenCalledWith(expectedTile)
 

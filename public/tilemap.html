@@ -14,7 +14,7 @@
     var c = document.getElementById("canvas");
 
     var ctx = c.getContext("2d");
-    var tileMap = new TileMap(4, 5, ctx.canvas.width, ctx.canvas.height);
+    var tileMap = new TileMap(5, 4, ctx.canvas.width, ctx.canvas.height);
     tileMap.fillTiles();
 
     tileMap.on("click", function (tile) {

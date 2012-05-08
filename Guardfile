@@ -1,5 +1,5 @@
 guard 'coffeescript', :output => 'public/javascripts' do
-  watch(/^app\/coffeescripts\/(.*)\.coffee/)
+  watch(/^src\/coffeescripts\/(.*)\.coffee/)
 end
 
 guard 'coffeescript', :output => 'spec/javascripts' do
